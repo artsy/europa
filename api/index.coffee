@@ -1,7 +1,8 @@
 require('node-env-file')("#{process.cwd()}/.env") unless process.env.NODE_ENV?
 express = require "express"
 bodyParser = require 'body-parser'
-{ NODE_ENV, ARTSY_URL, ARTSY_ID, ARTSY_SECRET, MONGOHQ_URL } = process.env
+{ NODE_ENV, ARTSY_URL, ARTSY_ID, ARTSY_SECRET, MONGOLAB_URI, INSTAGRAM_CLIENT_ID, INSTAGRAM_CLIENT_SECRET} = process.env
+ig = require('instagram-node').instagram()
 debug = require('debug') 'api'
 cors = require 'cors'
 mongoose = require 'mongoose'
@@ -9,7 +10,12 @@ mongoose = require 'mongoose'
 app = module.exports = express()
 
 # db
-mongoose.connect MONGOHQ_URL
+mongoose.connect MONGOLAB_URI
+
+#instagram
+ig.use
+  client_id: INSTAGRAM_CLIENT_ID
+  client_secret: INSTAGRAM_CLIENT_SECRET
 
 # Middleware
 app.use cors()
