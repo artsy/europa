@@ -1,18 +1,25 @@
-# 
-# Main app file that runs setup code and starts the server process.
-# This code should be kept to a minimum. Any setup code that gets large should 
-# be abstracted into modules under /lib.
-# 
+#
+# Main server that combines API & client
+#
+# Load environment vars
+env = require 'node-env-file'
+switch process.env.NODE_ENV
+  when 'test' then env __dirname + '/.env.test'
+  when 'production', 'staging' then ''
+  else env __dirname + '/.env'
 
-{ PORT } = require "./config"
+# Dependencies
 express = require "express"
-setup = require "./lib/setup"
-
 app = module.exports = express()
-setup app
 
-# Start the server and send a message to IPC for the integration test 
+# Put client/api together
+app.use '/api', require './api'
+# TODO: Possibly a terrible hack to not share `req.user` between both.
+app.use (req, rest, next) -> (req.user = null); next()
+app.use require './client'
+
+# Start the server and send a message to IPC for the integration test
 # helper to hook into.
-app.listen PORT, ->
-  console.log "Listening on port " + PORT
+app.listen process.env.PORT, ->
+  console.log "Listening on port " + process.env.PORT
   process.send? "listening"
