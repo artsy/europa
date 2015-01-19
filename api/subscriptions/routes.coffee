@@ -1,19 +1,46 @@
 _ = require 'underscore'
+mongoose = require 'mongoose'
 
-@index = (res, req, next) ->
+subscriptionSchema = new mongoose.Schema
+  provider:
+    type: String
+    required: true
+  term:
+    type: String
+    required: true
+    unique: true
+  term_type:
+    type: String
+    required: true
+  subscription_id:
+    type: Number
+    required: true
+    unique: true
 
-@show = (res, req, next) ->
+Subscription = mongoose.model 'Subscription', subscriptionSchema
 
-@create = (res, req, next) ->
+@index = (req, res, next) ->
+  Subscription.find (err, subscriptions)->
+    res.send subscriptions
 
-@find = (res, req, next) ->
+@show = (req, res, next) ->
+  Subscription.findOne {id: req.params.id}, (err, subscriptions)->
+    res.send subscriptions
 
-@update = (res, req, next) ->
+@create = (req, res, next) ->
+  # subscription = new Subscription
+  #   title: req.body.title
+  #   description: req.body.description
+  #   style: req.body.style
+
+@find = (req, res, next) ->
+
+@update = (req, res, next) ->
 
 @solveChallenge = (req, res, next) ->
   res.send req.query['hub.challenge']
 
-@callback = (res, req, next) ->
+@callback = (req, res, next) ->
 
 
 
