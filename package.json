@@ -19,7 +19,8 @@
     "underscore": "*",
     "express-force-ssl": "*",
     "deamdify": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "instagram-node": "*"
   },
   "devDependencies": {
     "jquery": "*",
