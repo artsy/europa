@@ -18,7 +18,8 @@
     "cors": "*",
     "underscore": "*",
     "express-force-ssl": "*",
-    "deamdify": "*"
+    "deamdify": "*",
+    "mongoose": "*"
   },
   "devDependencies": {
     "jquery": "*",

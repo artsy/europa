@@ -1,11 +1,15 @@
 require('node-env-file')("#{process.cwd()}/.env") unless process.env.NODE_ENV?
 express = require "express"
 bodyParser = require 'body-parser'
-{ NODE_ENV, ARTSY_URL, ARTSY_ID, ARTSY_SECRET } = process.env
+{ NODE_ENV, ARTSY_URL, ARTSY_ID, ARTSY_SECRET, MONGOHQ_URL } = process.env
 debug = require('debug') 'api'
 cors = require 'cors'
+mongoose = require 'mongoose'
 
 app = module.exports = express()
+
+# db
+mongoose.connect MONGOHQ_URL
 
 # Middleware
 app.use cors()
