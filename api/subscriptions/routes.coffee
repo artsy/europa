@@ -10,7 +10,8 @@ _ = require 'underscore'
 
 @update = (res, req, next) ->
 
-@solveChallenge = (res, req, next) ->
+@solveChallenge = (req, res, next) ->
+  res.send req.query['hub.challenge']
 
 @callback = (res, req, next) ->
 

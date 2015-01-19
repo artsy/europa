@@ -13,6 +13,8 @@ app.use bodyParser.urlencoded()
 app.use bodyParser.json()
 
 # Apps
+app.use require './subscriptions'
+
 app.get '/system/up', (req, res) ->
   res.status(200).send { up: true }
 
