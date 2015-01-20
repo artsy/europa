@@ -20,7 +20,8 @@
     "express-force-ssl": "*",
     "deamdify": "*",
     "mongoose": "*",
-    "instagram-node": "*"
+    "instagram-node": "*",
+    "q": "*"
   },
   "devDependencies": {
     "jquery": "*",
