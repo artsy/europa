@@ -12,11 +12,6 @@ app = module.exports = express()
 # db
 mongoose.connect MONGOLAB_URI
 
-#instagram
-ig.use
-  client_id: INSTAGRAM_CLIENT_ID
-  client_secret: INSTAGRAM_CLIENT_SECRET
-
 # Middleware
 app.use cors()
 app.use bodyParser.urlencoded()
@@ -24,6 +19,8 @@ app.use bodyParser.json()
 
 # Apps
 app.use require './tags'
+app.use require './entries'
+app.use require './feed'
 
 app.get '/system/up', (req, res) ->
   res.status(200).send { up: true }
