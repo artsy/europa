@@ -13,6 +13,7 @@ sd = sharify.data = _.pick process.env,
 
 # Dependencies
 express = require 'express'
+session = require 'cookie-session'
 bodyParser = require 'body-parser'
 Backbone = require 'backbone'
 path = require 'path'
@@ -30,13 +31,16 @@ module.exports = (app) ->
   # Mount generic middleware & run setup modules
   app.use forceSSL if 'production' is sd.NODE_ENV
   app.use sharify
+  app.use session
+    secret: process.env.SESSION_SECRET
+    key: 'europa.sess'
   setupEnv app
   setupAuth app
   app.use bodyParser.json()
   app.use bodyParser.urlencoded()
 
   # Mount apps
-  # app.use '/', require '../../apps/article_list'
+  app.use '/', require '../../apps/dashboard'
   # app.use '/', require '../../apps/edit'
   # app.use '/', require '../../apps/impersonate'
   # app.use errorHandler
