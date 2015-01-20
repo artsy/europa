@@ -23,7 +23,8 @@
     "instagram-node": "*",
     "q": "*",
     "passport": "*",
-    "passport-oauth2" : "*"
+    "passport-oauth2" : "*",
+    "cookie-session": "*"
   },
   "devDependencies": {
     "jquery": "*",
