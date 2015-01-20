@@ -1,16 +1,5 @@
 _ = require 'underscore'
-mongoose = require 'mongoose'
-
-tagSchema = new mongoose.Schema
-  term:
-    type: String
-    required: true
-    unique: true
-  provider:
-    type: String
-    required: true
-
-Tag = mongoose.model 'Tag', tagSchema
+{ Tag } = require '../lib/models.coffee'
 
 @index = (req, res, next) ->
   Tag.find (err, tags)->
