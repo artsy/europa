@@ -42,8 +42,8 @@ module.exports = (app) ->
   # app.use errorHandler
 
   # Mount static middleware for sub apps, components, and project-wide
-  fs.readdirSync(path.resolve __dirname, '../apps').forEach (fld) ->
-    app.use express.static(path.resolve __dirname, "../apps/#{fld}/public")
-  fs.readdirSync(path.resolve __dirname, '../components').forEach (fld) ->
-    app.use express.static(path.resolve __dirname, "../components/#{fld}/public")
-  app.use express.static(path.resolve __dirname, '../public')
+  fs.readdirSync(path.resolve __dirname, '../../apps').forEach (fld) ->
+    app.use express.static(path.resolve __dirname, "../../apps/#{fld}/public")
+  fs.readdirSync(path.resolve __dirname, '../../components').forEach (fld) ->
+    app.use express.static(path.resolve __dirname, "../../components/#{fld}/public")
+  app.use express.static(path.resolve __dirname, '../../public')
