@@ -21,6 +21,7 @@ getTagFeed = (tag)->
   Tag.find (err, tags)->
 
     feed = new Backbone.Collection null
+    feed.comparator = (model)-> - parseInt model.get('created_time')
 
     promises = _.map tags, getTagFeed
 
