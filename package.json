@@ -21,7 +21,9 @@
     "deamdify": "*",
     "mongoose": "*",
     "instagram-node": "*",
-    "q": "*"
+    "q": "*",
+    "passport": "*",
+    "passport-oauth2" : "*"
   },
   "devDependencies": {
     "jquery": "*",

@@ -18,6 +18,7 @@ Backbone = require 'backbone'
 path = require 'path'
 forceSSL = require 'express-force-ssl'
 setupEnv = require './env'
+setupAuth = require './auth'
 { parse } = require 'url'
 fs = require 'fs'
 
@@ -30,6 +31,7 @@ module.exports = (app) ->
   app.use forceSSL if 'production' is sd.NODE_ENV
   app.use sharify
   setupEnv app
+  setupAuth app
   app.use bodyParser.json()
   app.use bodyParser.urlencoded()
 
