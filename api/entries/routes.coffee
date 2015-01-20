@@ -1,5 +1,11 @@
 _ = require 'underscore'
+ig = require('instagram-node').instagram()
 { Entry } = require '../lib/models.coffee'
+{ INSTAGRAM_CLIENT_ID, INSTAGRAM_CLIENT_SECRET } = process.env
+
+ig.use
+  client_id: INSTAGRAM_CLIENT_ID
+  client_secret: INSTAGRAM_CLIENT_SECRET
 
 @index = (req, res, next) ->
   Entry.find (err, tags)->
@@ -10,11 +16,11 @@ _ = require 'underscore'
     res.send tags
 
 @create = (req, res, next) ->
-  Entry.create {term: req.body.term, provider: req.body.provider}, (err, tag)->
-    if err
-      res.send err
-
-    res.send tag
+  ig.media req.body.id, (err, media, remaining, limit) ->
+    Entry.create {external_id: media.id, payload: media}, (err, tag)->
+      if err
+        res.send err
+      res.send tag
 
 @update = (req, res, next) ->
   Entry.findByIdAndUpdate req.params.id, req.body, (err, tag)->
