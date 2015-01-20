@@ -1,13 +1,11 @@
 mongoose = require 'mongoose'
 
 entrySchema = new mongoose.Schema
-  term:
-    type: String
+  external_id:
+    type: Number
     required: true
     unique: true
-  provider:
-    type: String
-    required: true
+  payload: {}
 
 module.exports.Entry = Entry = mongoose.model 'Entry', entrySchema
 
