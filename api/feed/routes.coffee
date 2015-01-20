@@ -20,6 +20,7 @@ getTagFeed = (tag)->
 @index = (req, res, next) ->
   Tag.find (err, tags)->
 
+    # make a new backbone collection to combine instagram feeds and remove duplicates
     feed = new Backbone.Collection null
     feed.comparator = (model)-> - parseInt model.get('created_time')
 
@@ -27,6 +28,7 @@ getTagFeed = (tag)->
 
     Q.allSettled(promises).then( (response)->
 
+      # add all retrieved feeds to the collection
       _.map response, (promise)-> feed.add promise.value
 
       res.send feed.toJSON()
