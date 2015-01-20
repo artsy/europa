@@ -3,15 +3,13 @@
 # global configuration such as overriding Backbone.sync and
 # populating sharify data
 #
-
-# Inject some configuration & constant data into sharify
 _ = require 'underscore'
 sharify = require 'sharify'
 sd = sharify.data = _.pick process.env,
   'APP_URL', 'API_URL', 'NODE_ENV', 'FORCE_URL', 'ARTSY_URL', 'GEMINI_KEY',
   'SENTRY_PUBLIC_DSN'
 
-# Dependencies
+bucketAssets = require 'bucket-assets'
 express = require 'express'
 session = require 'cookie-session'
 bodyParser = require 'body-parser'
@@ -25,7 +23,6 @@ fs = require 'fs'
 
 module.exports = (app) ->
 
-  # Override Backbone to use server-side sync
   Backbone.sync = require 'backbone-super-sync'
 
   # Mount generic middleware & run setup modules
@@ -36,6 +33,7 @@ module.exports = (app) ->
     key: 'europa.sess'
   setupEnv app
   setupAuth app
+  app.use bucketAssets()
   app.use bodyParser.json()
   app.use bodyParser.urlencoded()
 

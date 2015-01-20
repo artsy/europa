@@ -1,7 +1,10 @@
 _ = require 'underscore'
+Feed = require '../../collections/feed.coffee'
 
 @index = (req, res, next) ->
-  res.send 200
+  feed = new Feed()
+  feed.fetch
+    success: -> res.render 'index', feed: feed.models
 
 
 
