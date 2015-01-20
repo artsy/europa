@@ -1,0 +1,8 @@
+extend ../../../components/layout/templates/index
+include ../../../../node_modules/artsy-ezel-components/pagination/paginator
+
+block content
+  .layout__content__header Feed
+  .layout__content__main
+    for entry in feed
+      include entry

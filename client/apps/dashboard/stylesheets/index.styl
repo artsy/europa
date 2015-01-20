@@ -1,0 +1,61 @@
+@import '../../../components/stylus_lib'
+
+.entry
+  margin 50px auto
+  max-width 430px
+  border 1px solid gray-lighter-color
+
+.entry__table
+  display table
+
+.entry__cell
+  display table-cell
+  text-align center
+  vertical-align middle
+  width 400px
+
+.entry__cell.entry__tools
+  avant-garde()
+  width 100px
+  border-right 1px solid gray-lighter-color
+  vertical-align top
+  padding 30px
+  font-size 12px
+
+  a
+    display block
+    width 100%
+    text-decoration none
+    color gray-color
+
+  a:hover
+    color green-light-color
+
+.entry__tools__approve
+
+  &:before
+    content "✓"
+    display block
+    padding 10px 0px
+
+.entry__content
+  garamond()
+  font-size 14px
+
+.entry__content__image
+  text-align center
+
+  img
+    display block
+
+.entry__content__author
+  avant-garde()
+  text-align left
+  padding 10px
+  padding-bottom 0
+  font-size 11px
+
+.entry__content__caption
+  text-align left
+  padding 10px
+  word-break break-word
