@@ -2,24 +2,32 @@
 
 .entry
   margin 50px auto
-  max-width 430px
+  width 408px
   border 1px solid gray-lighter-color
 
 .entry__table
   display table
+  table-layout fixed
+  white-space nowrap
+
+.entry__row
+  display table-row
 
 .entry__cell
   display table-cell
   text-align center
   vertical-align middle
+  overflow-x hidden
+  overflow-y hidden
   width 400px
 
 .entry__cell.entry__tools
   avant-garde()
-  width 100px
+  min-width 100px
+  max-width 100px
   border-right 1px solid gray-lighter-color
   vertical-align top
-  padding 30px
+  padding 30px 0
   font-size 12px
 
   a
@@ -37,6 +45,15 @@
     content "✓"
     display block
     padding 10px 0px
+
+  &:after
+    content "Approve"
+
+.entry.entry--approved .entry__tools__approve
+  color green-color
+
+  &:after
+    content "Approved"
 
 .entry__content
   garamond()
@@ -58,4 +75,5 @@
 .entry__content__caption
   text-align left
   padding 10px
+  white-space normal
   word-break break-word

@@ -1,9 +1,10 @@
-.entry(data-id="#{entry.id}")
+.entry(data-id="#{entry.id}" class= entry.get('approved') ? 'entry--approved' : '')
   .entry__table
-    .entry__cell.entry__tools
-      a.entry__tools__approve(href="#") Approve
-    .entry__cell.entry__content
-      .entry__content__image: img(src="#{entry.get('images').low_resolution.url}", alt="")
-      .entry__content__author: a(href="http://instagram.com/#{entry.get('user').username}", target="_blank")= entry.get('user').username
-      if entry.has('caption')
-        .entry__content__caption= entry.get('caption').text
+    .entry__row
+      .entry__cell.entry__tools
+        a.entry__tools__approve(href="#")
+      .entry__cell.entry__content
+        .entry__content__image: img(src="#{entry.get('images').low_resolution.url}", alt="")
+        .entry__content__author: a(href="http://instagram.com/#{entry.get('user').username}", target="_blank")= entry.get('user').username
+        if entry.has('caption')
+          .entry__content__caption= entry.get('caption').text
