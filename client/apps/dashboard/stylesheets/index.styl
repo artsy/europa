@@ -1,5 +1,36 @@
 @import '../../../components/stylus_lib'
 
+
+.layout__content__header__tags
+  garamond()
+  font-size 12px
+  margin-top 30px
+
+.layout__content__header__tags__list
+
+  .tag
+    margin 0 5px
+    background-color gray-lightest-color
+    border-radius 20px
+    display inline-block
+    padding 8px
+
+  .tag__remove
+    avant-garde()
+    margin-left 8px
+    font-size 9px
+
+  &.is-loading:after
+    content "Loading tags..."
+
+  &:before
+    content "Tags:"
+    font-weight bold
+    margin-right 5px
+
+.layout__content__header__tags__form
+  margin-top 30px
+
 .entry
   margin 50px auto
   width 408px
@@ -77,3 +108,4 @@
   padding 10px
   white-space normal
   word-break break-word
+

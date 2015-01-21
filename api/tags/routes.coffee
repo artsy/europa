@@ -24,9 +24,5 @@ _ = require 'underscore'
     res.send tag
 
 @delete = (req, res, next) ->
-  Tag.findByIdAndRemove req.params.id (err, tag)->
+  Tag.findByIdAndRemove req.params.id, (err, tag)->
     res.send tag
-
-
-
-
