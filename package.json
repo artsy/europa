@@ -27,7 +27,9 @@
     "cookie-session": "*",
     "nib": "",
     "artsy-ezel-components": "git://github.com/artsy/artsy-ezel-components.git",
-    "bucket-assets": "*"
+    "bucket-assets": "*",
+    "moment": "*",
+    "artsy-backbone-mixins": "*"
   },
   "devDependencies": {
     "jquery": "*",
