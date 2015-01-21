@@ -8,27 +8,28 @@ ig.use
   client_secret: INSTAGRAM_CLIENT_SECRET
 
 @index = (req, res, next) ->
-  Entry.find (err, tags)->
-    res.send tags
+  Entry.find (err, entries)->
+    res.send entries
 
 @show = (req, res, next) ->
-  Entry.findById req.params.id, (err, tags)->
-    res.send tags
+  Entry.findById req.params.id, (err, entry)->
+    res.send entries
 
 @create = (req, res, next) ->
-  ig.media req.body.id, (err, media, remaining, limit) ->
-    Entry.create {external_id: media.id, payload: media}, (err, tag)->
+  # find the media by the external_id and save that payload into the entry
+  ig.media req.body.external_id, (err, media, remaining, limit) ->
+    Entry.create {external_id: media.id, payload: media}, (err, entry)->
       if err
-        res.send err
-      res.send tag
+        res.status(400).send err
+      res.status(201).send entry
 
 @update = (req, res, next) ->
-  Entry.findByIdAndUpdate req.params.id, req.body, (err, tag)->
+  Entry.findByIdAndUpdate req.params.id, req.body, (err, entry)->
     if err
       res.send err
 
-    res.send tag
+    res.send entry
 
 @delete = (req, res, next) ->
-  Entry.findByIdAndRemove req.params.id (err, tag)->
-    res.send tag
+  Entry.findByIdAndRemove req.params.id (err, entry)->
+    res.send entry

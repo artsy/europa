@@ -2,7 +2,7 @@ mongoose = require 'mongoose'
 
 entrySchema = new mongoose.Schema
   external_id:
-    type: Number
+    type: String
     required: true
     unique: true
   payload: {}
