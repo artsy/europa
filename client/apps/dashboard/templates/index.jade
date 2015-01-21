@@ -2,7 +2,15 @@ extend ../../../components/layout/templates/index
 include ../../../../node_modules/artsy-ezel-components/pagination/paginator
 
 block content
-  .layout__content__header Feed
+  .layout__content__header
+    .layout__content__header__title Feed
+    .layout__content__header__tags
+      .layout__content__header__tags__list.is-loading
+        //- rendered on the client
+      form.layout__content__header__tags__form
+        input.tags__form__input.bordered-input(type="text")
+        input.tags__form__submit.avant-garde-button(type="submit" value="Add")
+
   .layout__content__main
     for entry in feed
       include entry
