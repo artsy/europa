@@ -3,43 +3,33 @@
 # One of the ways it does this is by providing the methods `startServer` and
 # `closeServer` that will spawn a child process of this project. This means
 # a version of this project server will run on localhost:5000 using a fake
-# API server exposed below a `api`.
+# API server exposed below as `api`.
 #
 spawn = require("child_process").spawn
 express = require "express"
+Browser = require 'zombie'
 
-# Fake API server, edit this to stub your own API's behavior.
-@api = express()
-@api.get "/user/:id", (req, res) ->
-  res.send { name: 'Jane Doe', email: 'jane@doe.com' }
+# Global Zombie options
+Browser.headers = 'X-Access-Token': 'test-access-token'
+Browser.debug = true
 
-# Spawns a child process with ENV variables that will launch it in "test"
-# mode. This includes an API_URL that points to the fake API server mounted
-# under /__api.
+# Spawns a child process with test .env.test variables
 @startServer = (callback) =>
-  return callback() if @child?
-  envVars =
-    NODE_ENV: "test"
-    API_URL: "http://localhost:5000/__api"
-    PORT: 5000
-  envVars[k] = val for k, val of process.env when not envVars[k]?
-  @child = spawn "make", ["s"],
+  return callback?() if @child?
+  @child = spawn "node_modules/.bin/coffee", ["index.coffee"],
     customFds: [0, 1, 2]
     stdio: ["ipc"]
-    env: envVars
-  @child.on "message", -> callback()
-  @child.stdout.on "data", (data) -> console.log data.toString()
+    env: { NODE_ENV: 'test', PATH: process.env.PATH  }
+  @child.on "message", -> callback?()
+  @child.stdout.pipe process.stdout
+  @child.stderr.pipe process.stdout
 
 # Closes the server child process, used in an `after` hook and on
 # `process.exit` in case the test suite is interupted.
 @closeServer = =>
   @child?.kill()
   @child = null
-
 process.on "exit", @closeServer
 
-# You can debug your integration app and run this app server by running
-# this module directly and opening up localhost:5000.
-# e.g. `coffee test/helpers/integration.coffee`
-return unless module is require.main
-@startServer => @child.stdout.on "data", (data) -> console.log data.toString()
+# Start the test server if run directly
+@startServer() if module is require.main
