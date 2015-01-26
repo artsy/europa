@@ -1,6 +1,7 @@
 $ = require 'jquery'
 Backbone = require 'backbone'
 Backbone.$ = require 'jquery'
+init = require '../../../components/layout/client.coffee'
 Entry = require '../../../models/entry.coffee'
 Feed = require '../../../collections/feed.coffee'
 Tags = require '../../../collections/tags.coffee'
@@ -73,6 +74,8 @@ class NewTagView extends Backbone.View
         location.reload()
 
 module.exports.init = ->
+  init()
+
   feed = new Feed sd.FEED
   new FeedView
     collection: feed
