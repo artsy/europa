@@ -28,6 +28,7 @@
     "nib": "",
     "artsy-ezel-components": "git://github.com/artsy/artsy-ezel-components.git",
     "bucket-assets": "*",
+    "basic-auth": "*",
     "moment": "*",
     "artsy-backbone-mixins": "*"
   },
