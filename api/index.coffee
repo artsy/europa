@@ -28,6 +28,3 @@ app.get '/system/up', (req, res) ->
 
 # app.use errorHandler
 # app.use notFound
-
-# Start the test server if run directly
-# app.listen(5000, -> debug "Listening on 5000") if module is require.main

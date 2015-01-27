@@ -1,10 +1,7 @@
 CurrentUser = require '../../client/models/current_user'
 moment = require 'moment'
 
-timeCount = 0
-
 module.exports = ->
-  timeCount++
   fixtures = {}
   fixtures.tags =
     [{

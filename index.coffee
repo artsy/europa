@@ -12,10 +12,7 @@ switch process.env.NODE_ENV
 express = require "express"
 app = module.exports = express()
 
-# Put client/api together
 app.use '/api', require './api'
-# TODO: Possibly a terrible hack to not share `req.user` between both.
-app.use (req, rest, next) -> (req.user = null); next()
 app.use require './client'
 
 # Start the server and send a message to IPC for the integration test
