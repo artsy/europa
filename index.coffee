@@ -3,7 +3,7 @@
 #
 # Load environment vars
 switch process.env.NODE_ENV
-  when 'test' then
+  when 'test'
     env = require 'node-env-file'
     env __dirname + '/.env.test'
   when 'production', 'staging' then ''
