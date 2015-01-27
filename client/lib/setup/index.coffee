@@ -17,9 +17,9 @@ Backbone = require 'backbone'
 path = require 'path'
 forceSSL = require 'express-force-ssl'
 setupEnv = require './env'
-setupAuth = require './auth'
 { parse } = require 'url'
 fs = require 'fs'
+auth = require '../middleware/auth'
 
 module.exports = (app) ->
 
@@ -34,16 +34,13 @@ module.exports = (app) ->
     secret: process.env.SESSION_SECRET
     key: 'europa.sess'
   setupEnv app
-  setupAuth app
   app.use bucketAssets()
   app.use bodyParser.json()
   app.use bodyParser.urlencoded()
 
   # Mount apps
+  app.use auth
   app.use '/', require '../../apps/dashboard'
-  # app.use '/', require '../../apps/edit'
-  # app.use '/', require '../../apps/impersonate'
-  # app.use errorHandler
 
   # Mount static middleware for sub apps, components, and project-wide
   fs.readdirSync(path.resolve __dirname, '../../apps').forEach (fld) ->
