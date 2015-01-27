@@ -1,5 +1,7 @@
 @import '../../stylus_lib'
 
+// Base styles
+
 *
   box-sizing border-box
 
@@ -9,32 +11,6 @@ a
 
 input
   outline none
-
-.layout__sidebar
-  garamond()
-  position fixed
-  height 100%
-  left 0
-  top 0
-  background-color #000
-  width 110px
-  padding 10px 0px
-  color white
-  text-align center
-  font-size 1.17em
-
-  img
-    max-width 80%
-
-.layout__content
-  padding-left 110px
-
-.layout__content__header
-  avant-garde()
-  padding 40px 0px
-  text-align center
-  border-bottom 1px solid gray-lightest-color
-
 
 .avant-garde-button
   avant-garde()
@@ -55,3 +31,6 @@ input
   box-shadow none
   font-size default-garamond-font-size
   background-color transparent
+
+@import 'sidebar'
+@import 'main'
