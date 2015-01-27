@@ -1,3 +1,15 @@
 nav.layout__sidebar
-  img(src="http://upload.wikimedia.org/wikipedia/commons/5/54/Europa-moon.jpg")
-  .layout__sidebar__header Europa
+  .layout__sidebar__header
+    img.layout__sidebar__header__img(src="http://upload.wikimedia.org/wikipedia/commons/5/54/Europa-moon.jpg")
+    .layout__sidebar__header__title Europa
+
+  .layout__sidebar__menu
+    a.layout__sidebar__menu-item(href="/")
+      .layout__sidebar__menu-icon
+      .layout__sidebar__menu-text Feed
+
+    a.layout__sidebar__menu-item(href="/Schedule")
+      .layout__sidebar__menu-icon
+      .layout__sidebar__menu-text Schedule
+
+
