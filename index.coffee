@@ -2,11 +2,14 @@
 # Main server that combines API & client
 #
 # Load environment vars
-env = require 'node-env-file'
 switch process.env.NODE_ENV
-  when 'test' then env __dirname + '/.env.test'
+  when 'test' then
+    env = require 'node-env-file'
+    env __dirname + '/.env.test'
   when 'production', 'staging' then ''
-  else env __dirname + '/.env'
+  else
+    env = require 'node-env-file'
+    env __dirname + '/.env'
 
 # Dependencies
 express = require "express"

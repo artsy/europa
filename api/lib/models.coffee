@@ -19,3 +19,8 @@ tagSchema = new mongoose.Schema
     required: true
 
 module.exports.Tag = Tag = mongoose.model 'Tag', tagSchema
+
+scheduleSchema = new mongoose.Schema
+  contents: {}
+
+module.exports.Tag = Tag = mongoose.model 'Schedule', scheduleSchema
