@@ -27,6 +27,12 @@ module.exports = (app) ->
 
   Backbone.sync.editRequest = (req) -> req.set('X-API-KEY': sd.LOCAL_API_KEY)
 
+  # CORS
+  app.all '/*', (req, res, next) ->
+    res.header 'Access-Control-Allow-Origin', '*'
+    res.header 'Access-Control-Allow-Headers', 'X-Requested-With'
+    next()
+
   # Mount generic middleware & run setup modules
   app.use forceSSL if 'production' is sd.NODE_ENV
   app.use sharify
@@ -39,8 +45,7 @@ module.exports = (app) ->
   app.use bodyParser.urlencoded()
 
   # Mount apps
-  app.use auth
-  app.use '/', require '../../apps/dashboard'
+  app.use '/', auth, require '../../apps/dashboard'
 
   # Mount static middleware for sub apps, components, and project-wide
   fs.readdirSync(path.resolve __dirname, '../../apps').forEach (fld) ->
