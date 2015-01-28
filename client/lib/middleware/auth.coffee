@@ -1,9 +1,18 @@
-auth = require 'basic-auth'
+basicAuth = require 'basic-auth'
 
 module.exports = (req, res, next) ->
-  user = auth(req)
-  if !user or user.name isnt process.env.LOCAL_USER or user.pass isnt process.env.LOCAL_PASSWORD
-    res.set 'WWW-Authenticate', 'Basic realm="Europa"'
-    return res.sendStatus(401).send()
 
-  next()
+  unauthorized = (res) ->
+    res.set 'WWW-Authenticate', 'Basic realm=Authorization Required'
+    return res.sendStatus(401)
+
+  user = basicAuth(req)
+
+  if !user or !user.name or !user.pass
+    return unauthorized(res)
+
+  if user.name is process.env.LOCAL_USER && user.pass is process.env.LOCAL_PASSWORD
+    return next()
+  else
+    return unauthorized(res)
+
