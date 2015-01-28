@@ -6,6 +6,7 @@
     "start": "make s"
   },
   "dependencies": {
+    "jquery": "*",
     "express": "*",
     "jade": "*",
     "sharify": "*",
@@ -34,7 +35,6 @@
     "artsy-backbone-mixins": "*"
   },
   "devDependencies": {
-    "jquery": "*",
     "browserify": "*",
     "stylus": "*",
     "jadeify": "*",
