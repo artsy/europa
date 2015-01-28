@@ -11,14 +11,13 @@ test: assets
 
 # Generate minified assets from the /assets folder and output it to /public.
 assets:
-	mkdir -p public/assets
-	$(foreach file, $(shell find assets -name '*.coffee' | cut -d '.' -f 1), \
-		$(BIN)/browserify $(file).coffee -t jadeify -t caching-coffeeify > public/$(file).js; \
-		$(BIN)/uglifyjs public/$(file).js > public/$(file).min.js \
-	)
-	$(BIN)/stylus assets -o public/assets
-	$(foreach file, $(shell find assets -name '*.styl' | cut -d '.' -f 1), \
-		$(BIN)/sqwish public/$(file).css -o public/$(file).min.css \
-	)
+	mkdir -p client/public/assets
+	$(BIN)/ezel-assets client/assets/ client/public/assets/
+
+# Deploys to Heroku. Run with `make deploy env=staging` or `make deploy env=production`.
+deploy: assets
+	$(BIN)/bucketassets -b europa-$(env)
+	heroku config:set COMMIT_HASH=$(shell git rev-parse --short HEAD) --app=europa-$(env)
+	git push git@heroku.com:europa-$(env).git master
 
 .PHONY: test assets
