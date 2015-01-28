@@ -23,4 +23,4 @@ module.exports.Tag = Tag = mongoose.model 'Tag', tagSchema
 scheduleSchema = new mongoose.Schema
   contents: {}
 
-module.exports.Tag = Tag = mongoose.model 'Schedule', scheduleSchema
+module.exports.Schedule = Schedule = mongoose.model 'Schedule', scheduleSchema
