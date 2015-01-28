@@ -5,6 +5,9 @@ entrySchema = new mongoose.Schema
     type: String
     required: true
     unique: true
+  provider:
+    type: String
+    required: true
   payload: {}
 
 module.exports.Entry = Entry = mongoose.model 'Entry', entrySchema

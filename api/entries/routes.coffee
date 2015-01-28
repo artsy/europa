@@ -18,7 +18,11 @@ ig.use
 @create = (req, res, next) ->
   # find the media by the external_id and save that payload into the entry
   ig.media req.body.external_id, (err, media, remaining, limit) ->
-    Entry.create {external_id: media.id, payload: media}, (err, entry)->
+    Entry.create
+      external_id: media.id,
+      payload: media,
+      provider: 'instagram'
+    , (err, entry)->
       if err
         res.status(400).send err
       res.status(201).send entry
