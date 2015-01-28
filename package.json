@@ -26,6 +26,7 @@
     "passport-oauth2" : "*",
     "cookie-session": "*",
     "nib": "",
+    "ezel-assets": "*",
     "artsy-ezel-components": "git://github.com/artsy/artsy-ezel-components.git",
     "bucket-assets": "*",
     "basic-auth": "*",
