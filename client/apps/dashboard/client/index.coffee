@@ -11,20 +11,41 @@ tagTemplate = -> require('../templates/tag.jade') arguments...
 class FeedView extends Backbone.View
 
   events:
+    'click .entry--approved .entry__tools__approve ' : 'deApproveEntry'
     'click .entry__tools__approve' : 'approveEntry'
+
+  getFromEvent: (e)->
+    $el = $(e.currentTarget)
+    $entry = $el.closest('.entry')
+    id = $entry.data('id')
+
+    console.log 'get from event', $entry, id, @collection.get id
+
+    entry = @collection.get id
+
+    {id: id, $entry: $entry, entry: entry}
+
+  deApproveEntry: (e)->
+    console.log 'deApprove'
+    e.preventDefault()
+    e.stopImmediatePropagation()
+
+    {$entry, entry} = @getFromEvent e
+
+    if entry
+      entry.deApprove()
+      $entry.removeClass 'entry--approved'
 
   approveEntry: (e)->
     e.preventDefault()
-    e.stopPropagation()
+    e.stopImmediatePropagation()
 
-    $el = $(e.currentTarget)
-    $entry = $el.closest('.entry')
+    {$entry, entry} = @getFromEvent e
 
-    id = $entry.data('id')
-    entry = @collection.get id
-    entry.approve()
+    if entry
+      entry.approve()
+      $entry.addClass 'entry--approved'
 
-    $entry.addClass 'entry--approved'
 
 class TagsView extends Backbone.View
 
@@ -64,8 +85,6 @@ class NewTagView extends Backbone.View
   addTag: (e)->
     e.preventDefault()
     e.stopPropagation()
-
-    console.log 'adding tag', @getTextValue()
 
     attrs = {term: @getTextValue(), provider: 'instagram'}
 

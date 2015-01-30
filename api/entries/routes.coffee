@@ -35,5 +35,5 @@ ig.use
     res.send entry
 
 @delete = (req, res, next) ->
-  Entry.findByIdAndRemove req.params.id (err, entry)->
+  Entry.findOneAndRemove {external_id: req.params.id}, (err, entry)->
     res.send entry
