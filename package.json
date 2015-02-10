@@ -21,6 +21,7 @@
     "express-force-ssl": "*",
     "deamdify": "*",
     "mongoose": "*",
+    "mongoose-findorcreate": "*",
     "instagram-node": "*",
     "q": "*",
     "passport": "*",
