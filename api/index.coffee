@@ -9,6 +9,7 @@ debug = require('debug') 'api'
 cors = require 'cors'
 mongoose = require 'mongoose'
 Pusher = require 'pusher'
+{ basicAuth } = require './lib/middleware'
 
 pusher = new Pusher
   appId:  PUSHER_APP_ID
@@ -34,8 +35,18 @@ app.use require './feed'
 app.post '/pusher/auth', (req, res) ->
   socketId = req.body.socket_id
   channel = req.body.channel_name
-  auth = pusher.authenticate socketId, channel, user_id: req.body.client_id
+  auth = pusher.authenticate socketId, channel,
+    user_id: req.body.client_id
+    user_info:
+      name: req.body.client_id
+      connected_at: new Date
+
   res.send auth
+
+app.post '/pusher/publish', basicAuth, (req, res) ->
+  console.log 'publishing', req.body.channel, req.body.event, req.body.data
+  sent = pusher.trigger req.body.channel, req.body.event, req.body.data
+  res.status(200).send sent
 
 app.get '/system/up', (req, res) ->
   res.status(200).send { up: true }
