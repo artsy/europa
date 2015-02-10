@@ -6,6 +6,9 @@ hash =
   '^$': ->
     require('../apps/dashboard/client/index.coffee').init()
 
+  '^/monoliths': ->
+    require('../apps/monoliths/client/view.coffee').init()
+
 # On DOM load iterate through the hash and load that app's JS
 $ ->
   for regexStr, load of hash

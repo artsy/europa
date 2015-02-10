@@ -7,7 +7,7 @@ _ = require 'underscore'
 sharify = require 'sharify'
 sd = sharify.data = _.pick process.env,
   'APP_URL', 'API_URL', 'NODE_ENV', 'FORCE_URL', 'ARTSY_URL', 'GEMINI_KEY',
-  'SENTRY_PUBLIC_DSN', 'LOCAL_API_KEY'
+  'SENTRY_PUBLIC_DSN', 'LOCAL_API_KEY', 'PUSHER_KEY'
 
 bucketAssets = require 'bucket-assets'
 express = require 'express'
@@ -45,7 +45,8 @@ module.exports = (app) ->
   app.use bodyParser.urlencoded()
 
   # Mount apps
-  app.use '/', auth, require '../../apps/dashboard'
+  app.use auth, require '../../apps/dashboard'
+  app.use auth, require '../../apps/monoliths'
 
   # Mount static middleware for sub apps, components, and project-wide
   fs.readdirSync(path.resolve __dirname, '../../apps').forEach (fld) ->
