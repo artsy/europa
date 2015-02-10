@@ -2,6 +2,7 @@ _ = require 'underscore'
 Backbone = require 'backbone'
 ig = require('instagram-node').instagram()
 Q = require 'q'
+
 { INSTAGRAM_CLIENT_ID, INSTAGRAM_CLIENT_SECRET } = process.env
 { Tag, Entry } = require '../lib/models.coffee'
 

@@ -25,7 +25,7 @@
     "instagram-node": "*",
     "q": "*",
     "passport": "*",
-    "passport-oauth2" : "*",
+    "passport-oauth2": "*",
     "cookie-session": "*",
     "nib": "",
     "ezel-assets": "*",
@@ -33,6 +33,7 @@
     "bucket-assets": "*",
     "basic-auth": "*",
     "moment": "*",
+    "pusher": "^1.0.3",
     "artsy-backbone-mixins": "*"
   },
   "devDependencies": {
