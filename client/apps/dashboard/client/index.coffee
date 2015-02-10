@@ -19,8 +19,6 @@ class FeedView extends Backbone.View
     $entry = $el.closest('.entry')
     id = $entry.data('id')
 
-    console.log 'get from event', $entry, id, @collection.get id
-
     entry = @collection.get id
 
     {id: id, $entry: $entry, entry: entry}

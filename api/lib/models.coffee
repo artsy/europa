@@ -1,4 +1,5 @@
 mongoose = require 'mongoose'
+findOrCreate = require 'mongoose-findorcreate'
 
 entrySchema = new mongoose.Schema
   external_id:
@@ -22,8 +23,3 @@ tagSchema = new mongoose.Schema
     required: true
 
 module.exports.Tag = Tag = mongoose.model 'Tag', tagSchema
-
-scheduleSchema = new mongoose.Schema
-  contents: {}
-
-module.exports.Schedule = Schedule = mongoose.model 'Schedule', scheduleSchema
