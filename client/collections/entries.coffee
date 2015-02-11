@@ -8,3 +8,5 @@ module.exports = class Entries extends Backbone.Collection
   url: "#{sd.API_URL}/entries"
 
   model: Entry
+
+  comparator: (model) -> - parseInt model.get('created_time')
