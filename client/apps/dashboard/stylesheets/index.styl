@@ -9,7 +9,7 @@
 .layout__content__header__tags__list
 
   .tag
-    margin 0 5px
+    margin 5px
     background-color gray-lightest-color
     border-radius 20px
     display inline-block
@@ -138,3 +138,31 @@
   white-space normal
   word-break break-word
   clear both
+
+@media only screen and (max-width : 600px)
+  .entry
+    width 300px
+
+  .entry__cell
+    display table-cell
+    text-align center
+    vertical-align middle
+    overflow-x hidden
+    overflow-y hidden
+    width auto
+
+  .entry__cell.entry__tools
+    avant-garde()
+    min-width 70px
+    max-width 70px
+    border-right 1px solid gray-lighter-color
+    vertical-align middle
+    padding 30px 0
+    font-size 8px
+
+  .entry__content__image
+    text-align center
+
+    img
+      display inline-block
+      max-width 100%
