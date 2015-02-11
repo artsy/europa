@@ -3,16 +3,25 @@ Backbone = require 'backbone'
 Backbone.$ = require 'jquery'
 init = require '../../../components/layout/client.coffee'
 Entry = require '../../../models/entry.coffee'
+Entries = require '../../../collections/entries.coffee'
 Feed = require '../../../collections/feed.coffee'
 Tags = require '../../../collections/tags.coffee'
 
+entriesTemplate = -> require('../templates/entries.jade') arguments...
 tagTemplate = -> require('../templates/tag.jade') arguments...
 
 class FeedView extends Backbone.View
+  collectionTypes:
+    all: Feed
+    approved: Entries
 
   events:
     'click .entry--approved .entry__tools__approve ' : 'deApproveEntry'
     'click .entry__tools__approve' : 'approveEntry'
+    'click .feed__toggle' : 'toggleFeed'
+
+  initialize: ->
+    @on 'tags:updated', @fetchEntries
 
   getFromEvent: (e)->
     $el = $(e.currentTarget)
@@ -24,7 +33,6 @@ class FeedView extends Backbone.View
     {id: id, $entry: $entry, entry: entry}
 
   deApproveEntry: (e)->
-    console.log 'deApprove'
     e.preventDefault()
     e.stopImmediatePropagation()
 
@@ -44,16 +52,37 @@ class FeedView extends Backbone.View
       entry.approve()
       $entry.addClass 'entry--approved'
 
+  # here we switch collection types.
+  # Feed: all entries from specified tags
+  # Entries: all approved entries
+  toggleFeed: (e)->
+    $current = $(e.currentTarget)
+    collectionName = $current.data('collection')
+
+    @collection = new @collectionTypes[collectionName]
+
+    $('.feed__toggle.is-active').removeClass 'is-active'
+    $current.addClass 'is-active'
+
+    @fetchEntries()
+
+  fetchEntries: ->
+    @collection.fetch success: @renderEntries
+
+  renderEntries: =>
+    @$('.layout__content__main--feed__entries').html entriesTemplate entries: @collection.models
 
 class TagsView extends Backbone.View
 
   events:
     'click .tag__remove' : 'removeTag'
 
-  initialize: ->
+  initialize: (options)->
     @collection.fetch success:=> @$el.removeClass 'is-loading'
 
     @listenTo @collection, 'add', @appendTag
+
+    @feedView = options.feedView
 
   appendTag: (tag)->
     @$el.append tagTemplate(tag: tag)
@@ -70,13 +99,17 @@ class TagsView extends Backbone.View
 
     tag = @collection.get id
     tag.destroy
-      success: -> location.reload()
+      success: =>
+        @feedView.trigger 'tags:updated'
     $el.closest('.tag').remove()
 
 class NewTagView extends Backbone.View
 
   events:
     'submit' : 'addTag'
+
+  initialize: (options) ->
+    @feedView = options.feedView
 
   getTextValue: -> @$('.tags__form__input').val()
 
@@ -87,14 +120,15 @@ class NewTagView extends Backbone.View
     attrs = {term: @getTextValue(), provider: 'instagram'}
 
     @collection.create attrs,
-      success: ->
-        location.reload()
+      success: =>
+        @$('.tags__form__input').val ""
+        @feedView.trigger 'tags:updated'
 
 module.exports.init = ->
   init()
 
   feed = new Feed sd.FEED
-  new FeedView
+  feedView = new FeedView
     collection: feed
     el: $('.layout__content__main')
 
@@ -102,8 +136,10 @@ module.exports.init = ->
   new TagsView
     collection: tags
     el: $('.layout__content__header__tags__list')
+    feedView: feedView
 
   new NewTagView
     collection: tags
     el: $('.layout__content__header__tags__form')
+    feedView: feedView
 
