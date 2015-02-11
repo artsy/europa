@@ -11,6 +11,9 @@ block content
         input.tags__form__input.bordered-input(type="text")
         input.tags__form__submit.avant-garde-button(type="submit" value="Add")
 
-  .layout__content__main
-    for entry in feed
-      include entry
+  .layout__content__main.layout__content__main--feed
+    .layout__content__main--feed__toggle
+      span.feed__toggle.is-active(data-collection='all') All
+      span.feed__toggle(data-collection='approved') Approved
+    .layout__content__main--feed__entries
+      include entries

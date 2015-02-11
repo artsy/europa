@@ -8,6 +8,16 @@ module.exports = class Entry extends Backbone.Model
 
   urlRoot: "#{sd.API_URL}/entries"
 
+  parse: (data) ->
+    # if we have the payload attribute
+    # then this is an approved entry
+    # otherwise we just return the entry
+    if data.payload?
+      data.payload.approved = true
+      return data.payload
+
+    return data
+
   timeAgo: ->
     date = parseInt(@get('created_time')) * 1000
     moment(date).fromNow()
