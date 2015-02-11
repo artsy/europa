@@ -6,7 +6,7 @@ Feed = require '../../collections/feed.coffee'
   feed.fetch
     success: ->
       res.locals.sd.FEED = feed.toJSON()
-      res.render 'index', feed: feed.models
+      res.render 'index', entries: feed.models
 
 
 
