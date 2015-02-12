@@ -8,7 +8,10 @@ ig.use
   client_secret: INSTAGRAM_CLIENT_SECRET
 
 @index = (req, res, next) ->
-  Entry.find (err, entries)->
+  limit = req.query.size || 100
+
+  q = Entry.find().sort({'payload.created_time': -1}).limit(limit)
+  q.exec (err, entries)->
     res.send entries
 
 @show = (req, res, next) ->
