@@ -17,6 +17,8 @@ module.exports = class EuropaPusher
     @channels =
       command: @pusher.subscribe 'command'
       presence: @pusher.subscribe 'presence-status'
+      presence_feed: @pusher.subscribe 'presence-status-feed'
+      presence_schedule: @pusher.subscribe 'presence-status-schedule'
 
   bindChannel: (channelName, channelEvent, callback) =>
     @channels[channelName].bind channelEvent, callback
