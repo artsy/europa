@@ -3,9 +3,8 @@
 .layout__content__main--console
   monospace()
   min-height 100%
-  position absolute
+  position relative
   width 100%
-  left 110px
   padding 20px
 
 .layout__content__main--console__columns
@@ -15,6 +14,7 @@ h2.monolith-header
   font-size 18px
   background-color gray-lightest-color
   padding 4px
+  font-weight normal
 
 h3.online-status
   font-weight normal
@@ -25,15 +25,21 @@ h3.online-status
   width 100%
   max-width 800px
 
+.route-value
+  padding 5px
+
 .monolith-columns__list__member
   display table-row
+  border-top 1px solid gray-lightest-color
+  border-bottom 1px solid gray-lightest-color
 
 .monolith-columns__list__member__attr
   display table-cell
+  padding 4px 0
 
 @media only screen and (max-width : 600px)
   .layout__content__main--console
     left 0px
 
-  .monolith-columns__list__member__attr
+  .monolith-columns__list__member__attr, .monolith-columns__list__member
     display block

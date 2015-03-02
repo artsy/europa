@@ -5,6 +5,10 @@ h3.online-status Online
       .monolith-columns__list__member(data-name="#{member.name}")
         .monolith-columns__list__member__attr= member.name
         .monolith-columns__list__member__attr= member.connected_at
+        .monolith-columns__list__member__attr
+          form.route-form
+            input.route-value(placeholder="e.g. schedule, feed, screensaver")
+            input.avant-garde-button.route(type="submit" value="Route")
         .monolith-columns__list__member__attr: button.avant-garde-button.reset Reset
   else
     span No monoliths online

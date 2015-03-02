@@ -12,6 +12,7 @@ class ConsoleView extends Backbone.View
 
   events:
     'click .reset' : 'resetMonolith'
+    'submit .route-form' : 'routeMonolith'
 
   initialize: ->
     @pusher = new EuropaPusher
@@ -45,6 +46,16 @@ class ConsoleView extends Backbone.View
     monolithId = $member.data('name')
 
     @pusher.triggerEvent "command", 'restart', monolithId
+
+  routeMonolith: (e)=>
+    e.stopImmediatePropagation()
+    e.preventDefault()
+    $member = $(e.currentTarget).closest('.monolith-columns__list__member')
+    monolithId = $member.data('name')
+
+    route = $(e.currentTarget).find('.route-value').val()
+
+    @pusher.triggerEvent "command", "route:#{route}", monolithId,
 
 module.exports.init = ->
   init()
