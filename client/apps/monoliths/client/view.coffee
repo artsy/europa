@@ -55,7 +55,7 @@ class ConsoleView extends Backbone.View
 
     route = $(e.currentTarget).find('.route-value').val()
 
-    @pusher.triggerEvent "command", "route:#{route}", monolithId,
+    @pusher.triggerEvent "command", "route", { name: monolithId, route: route }
 
 module.exports.init = ->
   init()
