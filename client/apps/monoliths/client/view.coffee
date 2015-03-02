@@ -14,6 +14,8 @@ class ConsoleView extends Backbone.View
     'click .reset' : 'resetMonolith'
     'submit .route-form' : 'routeMonolith'
 
+
+
   initialize: ->
     @pusher = new EuropaPusher
     @$columns = @$ '.layout__content__main--console__columns'
