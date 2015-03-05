@@ -1,7 +1,7 @@
 Europa
 ===
 
-[Europa](https://github.com/artsy/europa) is an admin app for our Artsy [Monoliths](https://github.com/artsy/monolith) .
+[Europa](https://github.com/artsy/europa) is an admin app for our Artsy [Monoliths](https://github.com/artsy/monolith).
 
 Meta
 ---
