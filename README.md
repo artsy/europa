@@ -1,7 +1,7 @@
 Europa
 ===
 
-[Europa](https://github.com/artsy/europa) is an admin app and API for our Artsy [Monoliths](https://github.com/artsy/monolith).
+[Europa](https://github.com/artsy/europa) is an admin app and API for our Artsy [Monoliths](https://github.com/artsy/monolith) (columns).
 
 Meta
 ---
@@ -42,6 +42,15 @@ make s
 ```
 - Europa should now be running at http://localhost:2001/
 
-Docs
+API
 ---
+Right now the only interesting endpoint is `/api/entries` (see sample output: [https://europa-production.herokuapp.com/api/entries?size=1](https://europa-production.herokuapp.com/api/entries?size=1)). These are all social media items approved by an Artsy admin. There are three attributes: 
+- `id` - the internal mongo assigned id
+- `external_id` - the id assigned by the social media provider
+- `provider` - (string) the social media provider (e.g. instagram)
+- `payload` - (json) raw api output of the saved social media item
+
+Administering a monolith
+---
+Monoliths can be managed remotely in a limited capacity via [https://europa-production.herokuapp.com/monoliths](https://europa-production.herokuapp.com/monoliths). The login is available through 1Pass.
 
